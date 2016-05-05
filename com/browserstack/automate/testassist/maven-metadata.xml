@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.browserstack.automate</groupId>
+  <artifactId>testassist</artifactId>
+  <versioning>
+    <versions>
+      <version>1.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20160505224859</lastUpdated>
+  </versioning>
+</metadata>
