@@ -99,7 +99,6 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <distributionManagement>
@@ -109,5 +108,4 @@
             <url>file://${project.build.directory}/mvn-repo</url>
         </repository>
     </distributionManagement>
-
 </project>
