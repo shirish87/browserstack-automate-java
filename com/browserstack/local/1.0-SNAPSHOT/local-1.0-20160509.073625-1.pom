@@ -7,9 +7,11 @@
     <version>1.0-SNAPSHOT</version>
     <name>browserstack-local</name>
     <url>http://maven.apache.org</url>
+
     <properties>
         <github.global.server>github</github.global.server>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
