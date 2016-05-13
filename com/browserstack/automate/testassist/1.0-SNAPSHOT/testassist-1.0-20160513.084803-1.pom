@@ -58,7 +58,7 @@
                     <target>${aspectj.target}</target>
                     <verbose>false</verbose>
                     <showWeaveInfo>false</showWeaveInfo>
-                    <Xlint>ignore</Xlint>
+                    <Xlint>adviceDidNotMatch=ignore</Xlint>
                 </configuration>
                 <executions>
                     <execution>
@@ -121,13 +121,6 @@
             <artifactId>aspectjrt</artifactId>
             <version>${aspectjrt.version}</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
