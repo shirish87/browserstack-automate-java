@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>mojo-parent</artifactId>
-        <version>39</version>
+        <version>32</version>
     </parent>
 
     <groupId>com.browserstack.automate</groupId>
@@ -18,25 +18,40 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <maven.compiler.version>2.5.1</maven.compiler.version>
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
 
+        <aspectj.java>1.6</aspectj.java>
         <aspectj.source>1.6</aspectj.source>
         <aspectj.target>1.6</aspectj.target>
-        <aspectj.complianceLevel>1.6</aspectj.complianceLevel>
 
-        <aspectj.maven.version>1.8</aspectj.maven.version>
-        <aspectjrt.version>1.8.7</aspectjrt.version>
+        <aspectj.maven.version>1.6</aspectj.maven.version>
+        <aspectjrt.version>1.7.4</aspectjrt.version>
 
         <commons.codec.version>1.10</commons.codec.version>
         <junit.version>4.11</junit.version>
         <selenium.java.version>2.22.0</selenium.java.version>
-
         <github.global.server>github</github.global.server>
     </properties>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>3.2</version>
+                    <executions>
+                        <execution>
+                            <id>help-mojo</id>
+                            <phase>none</phase>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -45,20 +60,28 @@
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
+                    <excludes>
+                        <basedir>src/main/java</basedir>
+                        <exclude>com/browserstack/automate/testassist/*Aspects.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
-                <version>${aspectj.maven.version}</version>
+                <version>1.8</version>
                 <configuration>
                     <aspectDirectory>${project.basedir}/src/main/java/com/browserstack/automate/testassist</aspectDirectory>
-                    <complianceLevel>${aspectj.complianceLevel}</complianceLevel>
+                    <complianceLevel>${aspectj.java}</complianceLevel>
                     <source>${aspectj.source}</source>
                     <target>${aspectj.target}</target>
-                    <verbose>false</verbose>
-                    <showWeaveInfo>false</showWeaveInfo>
+                    <verbose>true</verbose>
+                    <showWeaveInfo>true</showWeaveInfo>
                     <Xlint>adviceDidNotMatch=ignore</Xlint>
+                    <excludes>
+                        <basedir>src/main/java</basedir>
+                        <exclude>com/browserstack/automate/maven</exclude>
+                    </excludes>
                 </configuration>
                 <executions>
                     <execution>
@@ -103,18 +126,6 @@
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-plugin-api</artifactId>
-            <version>2.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.maven.plugin-tools</groupId>
-            <artifactId>maven-plugin-annotations</artifactId>
-            <version>3.4</version>
-        </dependency>
-
         <dependency>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>aspectj-maven-plugin</artifactId>
