@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <plugins>
+    <plugin>
+      <name>testassist</name>
+      <prefix>testassist</prefix>
+      <artifactId>maven-testassist</artifactId>
+    </plugin>
+  </plugins>
+</metadata>
