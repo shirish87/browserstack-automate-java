@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>mojo-parent</artifactId>
-        <version>38</version>
+        <version>39</version>
     </parent>
 
     <groupId>com.browserstack.automate</groupId>
@@ -18,16 +18,16 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.version>3.5.1</maven.compiler.version>
+        <maven.compiler.version>2.5.1</maven.compiler.version>
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
 
-        <aspectj.java>1.6</aspectj.java>
         <aspectj.source>1.6</aspectj.source>
         <aspectj.target>1.6</aspectj.target>
+        <aspectj.complianceLevel>1.6</aspectj.complianceLevel>
 
-        <aspectj.maven.version>1.7</aspectj.maven.version>
-        <aspectjrt.version>1.8.2</aspectjrt.version>
+        <aspectj.maven.version>1.8</aspectj.maven.version>
+        <aspectjrt.version>1.8.7</aspectjrt.version>
 
         <commons.codec.version>1.10</commons.codec.version>
         <junit.version>4.11</junit.version>
@@ -53,7 +53,7 @@
                 <version>${aspectj.maven.version}</version>
                 <configuration>
                     <aspectDirectory>${project.basedir}/src/main/java/com/browserstack/automate/testassist</aspectDirectory>
-                    <complianceLevel>${aspectj.java}</complianceLevel>
+                    <complianceLevel>${aspectj.complianceLevel}</complianceLevel>
                     <source>${aspectj.source}</source>
                     <target>${aspectj.target}</target>
                     <verbose>false</verbose>
