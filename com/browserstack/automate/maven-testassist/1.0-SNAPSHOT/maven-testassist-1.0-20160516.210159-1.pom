@@ -23,6 +23,8 @@
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
 
+        <plexus.utils.version>3.0.10</plexus.utils.version>
+
         <aspectj.java>1.6</aspectj.java>
         <aspectj.source>1.6</aspectj.source>
         <aspectj.target>1.6</aspectj.target>
@@ -129,7 +131,7 @@
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-utils</artifactId>
-            <version>3.0.10</version>
+            <version>${plexus.utils.version}</version>
         </dependency>
 
         <dependency>
