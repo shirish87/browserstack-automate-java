@@ -47,12 +47,12 @@
                 <version>${aspectj.maven.version}</version>
                 <configuration>
                     <aspectDirectory>${project.basedir}/src/main/java/com/browserstack/automate/aspects</aspectDirectory>
-                    <weaveDependencies>
-                        <weaveDependency>
-                            <groupId>org.seleniumhq.selenium</groupId>
-                            <artifactId>selenium-remote-driver</artifactId>
-                        </weaveDependency>
-                    </weaveDependencies>
+                    <!--<weaveDependencies>-->
+                        <!--<weaveDependency>-->
+                            <!--<groupId>org.seleniumhq.selenium</groupId>-->
+                            <!--<artifactId>selenium-remote-driver</artifactId>-->
+                        <!--</weaveDependency>-->
+                    <!--</weaveDependencies>-->
                     <complianceLevel>${aspectj.java}</complianceLevel>
                     <source>${aspectj.source}</source>
                     <target>${aspectj.target}</target>
