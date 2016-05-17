@@ -101,8 +101,8 @@
                     <complianceLevel>${aspectj.java}</complianceLevel>
                     <source>${aspectj.source}</source>
                     <target>${aspectj.target}</target>
-                    <verbose>true</verbose>
-                    <showWeaveInfo>true</showWeaveInfo>
+                    <verbose>false</verbose>
+                    <showWeaveInfo>false</showWeaveInfo>
                     <Xlint>adviceDidNotMatch=ignore</Xlint>
                     <warn>none</warn>
                     <excludes>
