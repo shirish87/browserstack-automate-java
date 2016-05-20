@@ -1,0 +1,203 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>mojo-parent</artifactId>
+        <version>32</version>
+    </parent>
+
+    <groupId>com.browserstack</groupId>
+    <artifactId>automate-maven-plugin</artifactId>
+    <name>automate-maven-plugin</name>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>maven-plugin</packaging>
+
+    <developers>
+        <developer>
+            <name>BrowserStack</name>
+            <email>support@browserstack.com</email>
+            <organization>BrowserStack</organization>
+            <organizationUrl>https://www.browserstack.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <distributionManagement>
+        <repository>
+            <id>internal.repo</id>
+            <name>Temporary Staging Repository</name>
+            <url>file://${project.build.directory}/mvn-repo</url>
+        </repository>
+    </distributionManagement>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <maven.compiler.version>2.5.1</maven.compiler.version>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
+
+        <plexus.utils.version>3.0.10</plexus.utils.version>
+
+        <aspectj.maven.version>1.6</aspectj.maven.version>
+        <aspectjrt.version>1.7.4</aspectjrt.version>
+
+        <aspectj.java>1.6</aspectj.java>
+        <aspectj.source>1.6</aspectj.source>
+        <aspectj.target>1.6</aspectj.target>
+
+        <commons.codec.version>1.10</commons.codec.version>
+        <junit.version>4.11</junit.version>
+        <selenium.java.version>2.22.0</selenium.java.version>
+        <github.global.server>github</github.global.server>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>m2</id>
+            <activation>
+                <jdk>1.6</jdk>
+            </activation>
+            <properties>
+                <aspectj.maven.version>1.6</aspectj.maven.version>
+                <aspectjrt.version>1.7.4</aspectjrt.version>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>m3</id>
+            <activation>
+                <jdk>[1.7, 1.9)</jdk>
+            </activation>
+            <properties>
+                <aspectj.maven.version>1.8</aspectj.maven.version>
+                <aspectjrt.version>1.8.7</aspectjrt.version>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>3.2</version>
+                    <executions>
+                        <execution>
+                            <id>help-mojo</id>
+                            <phase>none</phase>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <excludes>
+                        <basedir>src/main/java</basedir>
+                        <exclude>com/browserstack/automate/testassist/*Aspects.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>1.8</version>
+                <configuration>
+                    <aspectDirectory>${project.basedir}/src/main/java/com/browserstack/automate/testassist</aspectDirectory>
+                    <complianceLevel>${aspectj.java}</complianceLevel>
+                    <source>${aspectj.source}</source>
+                    <target>${aspectj.target}</target>
+                    <verbose>true</verbose>
+                    <showWeaveInfo>true</showWeaveInfo>
+                    <Xlint>adviceDidNotMatch=ignore</Xlint>
+                    <warn>none</warn>
+                    <excludes>
+                        <basedir>src/main/java</basedir>
+                        <exclude>com/browserstack/automate/maven</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.11</version>
+                <configuration>
+                    <message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
+                    <noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
+                    <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
+                    <branch>refs/heads/mvn-${project.artifactId}</branch>                       <!-- remote branch name -->
+                    <includes><include>**/*</include></includes>
+                    <repositoryName>browserstack-automate-java</repositoryName>      <!-- github repo name -->
+                    <repositoryOwner>shirish87</repositoryOwner>    <!-- github username  -->
+                </configuration>
+                <executions>
+                    <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+            <version>${plexus.utils.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>aspectj-maven-plugin</artifactId>
+            <version>${aspectj.maven.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons.codec.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectjrt.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.java.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>
